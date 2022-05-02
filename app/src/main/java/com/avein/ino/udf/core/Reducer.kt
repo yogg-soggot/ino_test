@@ -1,17 +1,17 @@
 package com.avein.ino.udf.core
 
-import com.avein.ino.udf.core.reducer.EffectRunner
+import com.avein.ino.udf.core.reducer.Update
 import com.avein.ino.udf.core.reducer.Reducer
 
 class MyReducer : Reducer<MyModel, MyEvent, MyEffect, MyAction> {
-    override fun invoke(state: MyModel, event: MyEvent): EffectRunner<MyEffect, MyAction, MyModel> {
+    override fun invoke(state: MyModel, event: MyEvent): Update<MyEffect, MyAction, MyModel> {
         return when(event) {
             is MyEvent.Rename -> update {
                 produce(MyEffect.Save(state.name))
-                send(MyAction())
                 state
             }
             MyEvent.Save -> update {
+                send(MyAction.Save(state))
                 state
             }
         }
@@ -30,4 +30,6 @@ sealed class MyEffect {
     object Load : MyEffect()
 }
 
-class MyAction
+sealed class MyAction {
+    class Save(val state: MyModel): MyAction()
+}
