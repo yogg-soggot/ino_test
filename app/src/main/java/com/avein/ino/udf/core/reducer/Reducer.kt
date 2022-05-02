@@ -22,3 +22,5 @@ class Command<Effect, Action> (
     val produce: (Effect) -> Unit,
     val send: (Action) -> Unit,
 )
+
+fun <Effect, Action, Model> Update<Effect, Action, Model>.pure() = sideEffect({}, {})
