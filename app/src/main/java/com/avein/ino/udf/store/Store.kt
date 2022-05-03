@@ -1,13 +1,15 @@
-package com.avein.ino.udf
+package com.avein.ino.udf.store
 
 import androidx.compose.runtime.Composable
+import com.avein.ino.udf.FlowEffectHandler
+import com.avein.ino.udf.ReactiveState
 import com.avein.ino.udf.core.*
 import com.avein.ino.udf.core.reducer.Reducer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import androidx.compose.runtime.State as ComposeState
 
-class Store<Model, Event, Action, Effect> (
+class Store<Model, Event, Effect, Action> (
     private val _state: ReactiveState<Model>,
     private val reducer: Reducer<Model, Event, Effect, Action>,
     private val effectHandler: FlowEffectHandler<Effect>,
